@@ -1,0 +1,55 @@
+
+        .head{
+            width:100%;
+            clear:both;
+        }
+        .table{
+            width:100%;
+            border-collapse:collapse;
+            clear:both;
+        }
+        .table td, .table th{
+            border:1px solid #98bf21;
+            padding:3px 7px 2px 7px;
+            text-align: center;
+        }
+        .table th{
+            background-color: #82bf76;
+        }
+        .button{
+            background-color: #2379bc;
+            border:none;
+            color:white;
+            text-align:center;
+            text-decoration: none;
+            display:inline-block;
+            border-radius: 4px;
+            padding:8px 10px;
+            margin:10px;
+        }
+        .buttons{
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid black;
+            display:inline-block;
+            padding:5px 8px;
+        }
+        .form-group{
+            float:left;
+            margin-right: 10px;
+        }
+        .form-group input{
+            line-height: 2.5;
+            border-radius: 4px;
+        }
+        .button_cha{
+            background-color: #2379bc;
+            border:none;
+            color:white;
+            text-align:center;
+            text-decoration: none;
+            display:inline-block;
+            border-radius: 4px;
+            padding:8px 10px;
+        }

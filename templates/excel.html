@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="static/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <link rel="stylesheet" type="text/css" href="static/css/2.css">
+</head>
+<body>
+    <div>
+        <div class="head">
+            <div style="border-bottom: 1px solid #080808;">
+                <h2>教授课程</h2>
+            </div>
+        </div>
+        <div>
+                <table border="1" class="table">
+                    <tr class="tr">
+                        <th>课程编号</th>
+                        <th>课序号</th>
+                        <th>课名</th>
+                        <th>学分</th>
+                        <th>课程类别</th>
+                        <th>操作</th>
+                    </tr>
+                    {% for r in results %}
+                    <tr class="tr">
+                        <td>{{r[0]}}</td>
+                        <td>{{r[1]}}</td>
+                        <td>{{r[2]}}</td>
+                        <td>{{r[3]}}</td>
+                        <td>{{r[4]}}</td>
+                        <td>
+                            <form name="input" action="{{url_for('excel_mark')}}" method="post" enctype="multipart/form-data">
+                                <input type="hidden" id="bianhao" value="{{bianhao}}" name="bianhao">
+                                <input type="hidden" id="kehao" value="{{r[0]}}" name="kehao">
+                                <input type="hidden" id="kexuhao" value="{{r[1]}}" name="kexuhao">
+                                <input class="form-control" type="file" accept=".xls,.xlsx" name="file" value="请上传excel文件">
+                                <input type="submit" value="提交">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        </div>
+    </div>
+    <script>
+        if('{{result}}' != null && '{{result}}' != ''){
+            alert('{{result}}')
+        }
+    </script>
+</body>
+</html>

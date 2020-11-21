@@ -1,0 +1,25 @@
+.body{
+            width:50%;
+            margin:50px auto;
+            height:1200px;
+            text-align:center;
+            border:1px solid #8d9484;
+            border-radius:4px;
+            padding:10px 10px;
+        }
+        input[type=text]{
+            width: 80%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        label{
+            width:10%;
+        }
+        form div{
+            height:70px;
+        }

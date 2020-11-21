@@ -1,0 +1,59 @@
+.head{
+            width:100%;
+            clear:both;
+        }
+        .head a{
+            float: left;
+            width: 100px;
+            /*border-bottom: solid 1px #ccc;*/
+            font-size: 20px;
+            line-height: 25px;
+            display: block;
+            /*border-right:solid 1px;*/
+            text-align: center;
+            text-decoration: none;
+            margin-left: 20px;
+            color:black;
+        }
+        .table{
+            width:100%;
+            border-collapse:collapse;
+            clear:both;
+        }
+        .table td, .table th{
+            border:1px solid #98bf21;
+            padding:3px 7px 2px 7px;
+            text-align: center;
+        }
+        .table th{
+            background-color: #82bf76;
+        }
+        .buttons{
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid black;
+            display: inline-block;
+            padding: 5px 8px;
+            background-color: #2379bc;
+            color:white;
+        }
+        /*.form-group{*/
+        /*    float:left;*/
+        /*    margin-right: 10px;*/
+        /*}*/
+        /*.button_cha{*/
+        /*    background-color: #2379bc;*/
+        /*    border:none;*/
+        /*    color:white;*/
+        /*    text-align:center;*/
+        /*    text-decoration: none;*/
+        /*    display:inline-block;*/
+        /*    border-radius: 4px;*/
+        /*    padding:8px 10px;*/
+        /*}*/
+        select{
+            width:100px;
+            height:30px;
+            font-family:Microsoft YaHei;
+        }

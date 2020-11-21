@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="static/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <style>
+        .backimg{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            min-width: 1000px;
+            z-index: -10;
+            zoom:1;
+            background: url('static/背景2.jpeg') no-repeat;
+            background-size:cover;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            background-position: center 0;
+        }
+        .denglu{
+            background-color:white;
+            width:350px;
+            height:400px;
+            position:absolute;
+            top:200px;
+            right:200px;
+            opacity:0.9;
+        }
+        h2{
+            font-size:40px;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            color:white;
+            position:absolute;
+            left:80px;
+        }
+        .tubiao{
+            width:50px;
+            height:50px;
+            position:absolute;
+            top:40px;
+            left:30px;
+        }
+        .title {
+            float: left;
+            width: 100%;
+            /*border-bottom: solid 1px #ccc;*/
+        }
+        .title a {
+            float: left;
+            width: calc((100% - 1px) / 2);
+            /*border-bottom: solid 1px #ccc;*/
+            font-size: 20px;
+            line-height: 50px;
+            display: block;
+            /*border-right:solid 1px;*/
+            text-align: center;
+            text-decoration: none;
+            color: #69696b;
+        }
+        .noactive{
+            border-bottom: none;
+            background-color: #ecebeb;
+        }
+        .active{
+            border-right:solid 1px #ecebeb;
+            border-bottom: none;
+        }
+        .input{
+            float: left;
+            width: calc(100% - 63px);
+            height: 32px;
+            line-height: 32px;
+            padding: 0 10px;
+            border: 1px solid #dedede;
+            margin: 14px 0 1px 21px;
+            font-size: 14px;
+            color: #999;
+            box-shadow: none;
+            background-color: white;
+        }
+        .shenfen{
+            float:left;
+            width: calc(100% - 42px);
+            margin: 10px 0 0 21px;
+            color: #999;
+        }
+        .shenfen input{
+            width:50px;
+        }
+        .choice{
+            float: left;
+            width: calc(100% - 42px);
+            margin: 10px 0 0 21px;
+        }
+        .landing{
+            float: left;
+            background-image: none;
+            background-color: #a50001;
+            width: calc(100% - 40px);
+            height: 38px;
+            padding: 10px 0px;
+            cursor: pointer;
+            font-family: "Microsoft YaHei";
+            font-size: 18px;
+            border-radius: 6px;
+            margin: 12px 0px 0px 21px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .login{
+            float: left;
+            background: transparent;
+            width: 100%;
+            height: 38px;
+            cursor: pointer;
+            font-family: "Microsoft YaHei";
+            font-size: 18px;
+            border-radius: 6px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            box-sizing: border-box;
+        }
+        .row{
+            float: left;
+            width: 100%;
+            color: #666;
+            box-sizing: content-box;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            margin: 12px 0px 0px 21px;
+            font-size: 100%;
+            font-family: "microsoft yahei";
+            vertical-align: baseline;
+        }
+        .flash{
+            float:left;
+            width: 100%;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div class="backimg">
+        <div>
+            <img src="static/图标.jpg" class="tubiao"></img>
+            <h2 >教务管理系统|信息化服务平台</h2>
+        </div>
+        <div class="denglu">
+            <div class="title">
+                <a class="active" href="javascript:void(0);" onclick="load(0)">账号登录</a>
+                <a class="noactive" href="javascript:void(0);" onclick="load(1)">密码登录</a>
+            </div>
+            <div class="container" id="contain">
+                <div class="demo">
+                    <form name="input" action="/result" method="post" onsubmit="return infocheck();">
+                        <div>
+                            <input class="input" type="text" placeholder="用户名" name="username">
+                        </div>
+                        <div>
+                            <input class = "input" type="password" placeholder="密码" name="password">
+                        </div>
+                        <div class="shenfen">
+                            <input type="radio" name="shenfen" value="管理员">管理员
+                            <input type="radio" name="shenfen" value="教师">教师
+                            <input type="radio" name="shenfen" value="学生">学生
+                        </div>
+                        <div class="choice">
+                            <input type="checkbox">
+                            <span style="color:#999;">自动登录</span>
+                            <a href="" style="text-decoration:none;float: right;height: 18px;line-height: 18px;color: #2379bc;">忘记密码?</a>
+                        </div>
+                        <div class="landing">
+                            <input type="submit" class="login" value="账号登录">
+                        </div>
+                    </form>
+                    <div>
+                        <p class="row">
+                            <b>温馨提示：</b>
+                        </p>
+                        <p class="row">1.用户名为账号，初始密码为姓名全拼</p>
+                        <p class="row">2.登录后请修改密码</p>
+                        <p class="row">3.扫码功能还未开发</p>
+                    </div>
+                    <div class="flash">
+                        <!--flask消息闪现-->
+                        {% with messages = get_flashed_messages() %}    <!--使用get_flashed_message函数读取消息-->
+                            {% if messages %}    <!--如果有消息就显示出来-->
+                                <ul>
+                                    {% for message in messages %}
+                                        <li>
+                                            {{ message }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="demo" style="text-align: center; width:100%; float:left; display:none;"><b>尚未开发</b></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function load(i){
+            var con = document.getElementsByTagName("a");
+            //获取要显示或者隐藏的对象
+            var de = document.getElementsByClassName("demo");
+            if(i == 0){
+                con[0].classList.add("active");
+                con[0].classList.remove("noactive");
+                con[1].classList.add("noactive");
+                con[1].classList.remove("active");
+                de[1].style.display = 'none';
+                de[0].style.display = 'block';
+            }
+            else{
+                con[1].classList.add("active");
+                con[1].classList.remove("noactive");
+                con[0].classList.add("noactive");
+                con[0].classList.remove("active");
+                de[0].style.display = 'none';
+                de[1].style.display = 'block';
+            }
+        }
+        function infocheck(){
+            var yonghu = document.forms["input"]["username"].value;
+            if(yonghu == null || yonghu == ""){
+                alert("账号不能为空！");
+                return false;
+            }
+            var mima = document.forms["input"]["password"].value;
+            var t2 = /^[a-zA-Z0-9@#*$!%]*$/;
+            if(mima == null || mima == ""){
+                alert("密码不能为空！");
+                return false;
+            }
+            //正确地登录密码长度为6-16位，仅可用英文、数字、特殊字符@#*$!%！
+            else if(mima.length < 6 || mima.length > 16){
+                alert("请输入正确的密码，长度为6-16位！");
+                return false;
+            }
+            else if(!t2.test(mima)){
+                alert("请输入正确的密码,仅可用英文、数字、特殊字符@#*$!%！");
+                return false;
+            }
+            var shenfen = document.forms["input"]["shenfen"];
+            if(shenfen[0].checked == false && shenfen[1].checked == false && shenfen[2].checked == false){
+                alert("请选择身份！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

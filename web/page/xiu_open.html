@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="assets/img/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <link rel="stylesheet" type="text/css" href="web/assets/css/5.css">
+    <style>
+        input[type=submit], input[type=button]{
+            width:100px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <div><h2>修改开课信息页面</h2></div>
+        <form name="input" action="{{url_for('xiu_open_cou')}}" method="post" onsubmit="return infocheck();">
+            <div>
+                <label for="kehao">课程编号：</label>
+                <input type="text" id="kehao" value="{{results[0][0]}}" name="kehao" readonly>
+            </div>
+            <div>
+                <label for="kexuhao">课序号：</label>
+                <input type="text" id="kexuhao" name="kexuhao" value="{{results[0][1]}}" readonly>
+            </div>
+            <div>
+                <label for="tea">任课教师：</label>
+                <select id="tea" name="tea">
+                    {% for t in teachers %}
+                        {% if t[0] == results[0][2] %}
+                            <option value="{{t[0]}}" selected>{{t[0]}}</option>
+                        {% endif %}
+                        {% if t[0] != results[0][2] %}
+                            <option value="{{t[0]}}">{{t[0]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="num">选课人数上限：</label>
+                <input type="text" id="num" name="num" value="{{results[0][3]}}" oninput="value=value.replace(/[^\d]/g,'')">
+            </div>
+            <div>
+                <label for="kaike">开课学期：</label>
+                <select id="kaike" name="kaike">
+                    {% if results[0][4] == 1 %}
+                        <option value="1" selected>1</option>
+                    {% endif %}
+                    {% if results[0][4] != 1 %}
+                        <option value="1">1</option>
+                    {% endif %}
+                    {% if results[0][4] == 2 %}
+                        <option value="2" selected>2</option>
+                    {% endif %}
+                    {% if results[0][4] != 2 %}
+                        <option value="2">2</option>
+                    {% endif %}
+                    {% if results[0][4] == 3 %}
+                        <option value="3" selected>3</option>
+                    {% endif %}
+                    {% if results[0][4] != 3 %}
+                        <option value="3">3</option>
+                    {% endif %}
+                    {% if results[0][4] == 4 %}
+                        <option value="4" selected>4</option>
+                    {% endif %}
+                    {% if results[0][4] != 4 %}
+                        <option value="4">4</option>
+                    {% endif %}
+                    {% if results[0][4] == 5 %}
+                        <option value="5" selected>5</option>
+                    {% endif %}
+                    {% if results[0][4] != 5 %}
+                        <option value="5">5</option>
+                    {% endif %}
+                    {% if results[0][4] == 6 %}
+                        <option value="6" selected>6</option>
+                    {% endif %}
+                    {% if results[0][4] != 6 %}
+                        <option value="6">6</option>
+                    {% endif %}
+                    {% if results[0][4] == 7 %}
+                        <option value="7" selected>7</option>
+                    {% endif %}
+                    {% if results[0][4] != 7 %}
+                        <option value="7">7</option>
+                    {% endif %}
+                    {% if results[0][4] == 8 %}
+                        <option value="8" selected>8</option>
+                    {% endif %}
+                    {% if results[0][4] != 8 %}
+                        <option value="8">8</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div>
+                <label for="didian">上课地点：</label>
+                <input type="text" id="didian" name="didian" value="{{results[0][5]}}">
+            </div>
+            <div>
+                <label for="zhou">周数：</label>
+                <input type="text" id="zhou" name="zhou" value="{{results[0][6]}}">
+            </div>
+            <div>
+                <label for="xing">星期：</label>
+                <select id="xing" name="xing">
+                    {% if results[0][7] == 1 %}
+                        <option value="1" selected>1</option>
+                    {% endif %}
+                    {% if results[0][7] != 1 %}
+                        <option value="1">1</option>
+                    {% endif %}
+                    {% if results[0][7] == 2 %}
+                        <option value="2" selected>2</option>
+                    {% endif %}
+                    {% if results[0][7] != 2 %}
+                        <option value="2">2</option>
+                    {% endif %}
+                    {% if results[0][7] == 3 %}
+                        <option value="3" selected>3</option>
+                    {% endif %}
+                    {% if results[0][7] != 3 %}
+                        <option value="3">3</option>
+                    {% endif %}
+                    {% if results[0][7] == 4 %}
+                        <option value="4" selected>4</option>
+                    {% endif %}
+                    {% if results[0][7] != 4 %}
+                        <option value="4">4</option>
+                    {% endif %}
+                    {% if results[0][7] == 5 %}
+                        <option value="5" selected>5</option>
+                    {% endif %}
+                    {% if results[0][7] != 5 %}
+                        <option value="5">5</option>
+                    {% endif %}{% if results[0][7] == 6 %}
+                        <option value="6" selected>6</option>
+                    {% endif %}
+                    {% if results[0][7] != 6 %}
+                        <option value="6">6</option>
+                    {% endif %}
+                    {% if results[0][7] == 7 %}
+                        <option value="7" selected>7</option>
+                    {% endif %}
+                    {% if results[0][7] != 7 %}
+                        <option value="7">7</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div>
+                <label for="jie">节数：</label>
+                <select id="jie" name="jie">
+                    {% if results[0][8] == 1 %}
+                        <option value="1" selected>1</option>
+                    {% endif %}
+                    {% if results[0][8] != 1 %}
+                        <option value="1">1</option>
+                    {% endif %}
+                    {% if results[0][8] == 2 %}
+                        <option value="2" selected>2</option>
+                    {% endif %}
+                    {% if results[0][8] != 2 %}
+                        <option value="2">2</option>
+                    {% endif %}
+                    {% if results[0][8] == 3 %}
+                        <option value="3" selected>3</option>
+                    {% endif %}
+                    {% if results[0][8] != 3 %}
+                        <option value="3">3</option>
+                    {% endif %}
+                    {% if results[0][8] == 4 %}
+                        <option value="4" selected>4</option>
+                    {% endif %}
+                    {% if results[0][8] != 4 %}
+                        <option value="4">4</option>
+                    {% endif %}
+                    {% if results[0][8] == 5 %}
+                        <option value="5" selected>5</option>
+                    {% endif %}
+                    {% if results[0][8] != 5 %}
+                        <option value="5">5</option>
+                    {% endif %}
+                    {% if results[0][8] == 6 %}
+                        <option value="6" selected>6</option>
+                    {% endif %}
+                    {% if results[0][8] != 6 %}
+                        <option value="6">6</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div>
+                <label>开课班级：</label>
+                {% for b in ban %}
+                    {% if b[0] in results[1] %}
+                        <input type="checkbox" name="open" value="{{b[0]}}" checked>{{b[0]}}
+                    {% endif %}
+                    {% if b[0] not in results[1] %}
+                        <input type="checkbox" name="open" value="{{b[0]}}">{{b[0]}}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div>
+                <input type="submit" value="保存">
+                <input type="button" value="返回" onclick="javascript:history.back();">
+            </div>
+        </form>
+    </div>
+    <script>
+        function infocheck(){
+            var num = document.forms["input"]["num"].value;
+            if(num == null || num == ""){
+                alert("选课人数上限不能为空！");
+                return false;
+            }
+            var didian = document.forms["input"]["didian"].value;
+            if(didian == null || didian == ""){
+                alert("地点不能为空！！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

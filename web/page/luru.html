@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/img/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <style>
+        form{
+            width:50%;
+            margin:50px auto;
+            height:500px;
+            text-align:center;
+        }
+        input[type=text]{
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit]{
+            width:100px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form name="input" action="{{'luru_mark'}}?bianhao={{bianhao}}&page={{page}}" method="post" onsubmit="return infocheck();">
+            <input type="hidden" id="xuehao" value="{{xuehao}}" name="xuehao">
+            <input type="hidden" id="kehao" value="{{kehao}}" name="kehao">
+            <input type="hidden" id="kexuhao" value="{{kexuhao}}" name="kexuhao">
+            <div>
+                <label for="pingshi">平时成绩：</label>
+                <input type="text" id="pingshi" name="pingshi">
+            </div>
+            <div>
+                <label for="kaoshi">考试成绩：</label>
+                <input type="text" id="kaoshi" name="kaoshi">
+            </div>
+            <div>
+                <input type="submit" value="保存">
+                <input type="button" value="返回" onclick="javascript:history.back();">
+            </div>
+        </form>
+    </div>
+    <script>
+        function infocheck(){
+            var ping = document.forms["input"]["pingshi"].value;
+            var kao = document.forms["input"]["kaoshi"].value;
+            var t2 = /^[0-9]*$/;
+            if(ping == null || ping == ""){
+                alert("平时成绩不能为空！");
+                return false;
+            }
+            else if(!t2.test(ping)){
+                alert("平时成绩仅限于非负数！！");
+                return false;
+            }
+            else if(ping > 100){
+                alert("平时成绩仅限于0-100之间");
+                return false;
+            }
+            if(kao == null || kao == ""){
+                alert("考试成绩不能为空！");
+                return false;
+            }
+            else if(!t2.test(kao)){
+                alert("考试成绩仅限于非负数！！");
+                return false;
+            }
+            else if(kao > 100){
+                alert("考试成绩仅限于0-100之间");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

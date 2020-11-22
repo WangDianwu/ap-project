@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/img/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <style>
+        form{
+            width:50%;
+            margin:50px auto;
+            height:500px;
+            text-align:center;
+        }
+        input[type=text]{
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit]{
+            width:100px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <form name="input" action="http://127.0.0.1:5000/update_mima" method="post" onsubmit="return infocheck();">
+            <input type="hidden" id="hao" value="{{hao}}" name="hao">
+            <input type="hidden" id="shenfen" value="{{shenfen}}" name="shenfen">
+            <div>
+                <label for="mima">新密码：</label>
+                <input type="text" id="mima" name="mima">
+            </div>
+            <div>
+                <label for="mima2">再次确认：</label>
+                <input type="text" id="mima2" name="mima2">
+            </div>
+            <div>
+                <input type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+    <script>
+        function infocheck(){
+            var m = document.forms["input"]["mima"].value;
+            var t2 = /^[a-zA-Z0-9@#*$!%]*$/;
+            var m2 = document.forms["input"]["mima2"].value;
+            if(m == null || m == ""){
+                alert("新密码不能为空！");
+                return false;
+            }
+            else if(m.length < 6 || m.length > 16){
+                alert("请输入正确的密码，长度为6-16位！");
+                return false;
+            }
+            else if(!t2.test(m)){
+                alert("请输入正确的密码,仅可用英文、数字、特殊字符@#*$!%！");
+                return false;
+            }
+            if(m2 == null || m2 == ""){
+                alert("确认新密码不能为空！");
+                return false;
+            }
+            if(m != m2){
+                alert("密码不一致！");
+                return false;
+            }
+            return true;
+        }
+        if('{{result}}' != null && '{{result}}' != ""){
+            alert('{{result}}')
+        }
+    </script>
+</body>
+</html>

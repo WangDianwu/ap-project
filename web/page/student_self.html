@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="assets/img/图标.jpg" rel="icon" type="image/x-icon" />
+    <title>教务管理系统</title>
+    <style>
+        table{
+            width:30%;
+            margin:50px auto;
+            height:500px;
+            border-collapse:collapse;
+            text-align:center;
+        }
+        table,td{
+            border:solid 1px black;
+            padding:15px 15px 15px 15px;
+        }
+        .button{
+            width: 80px;
+            height:30px;
+            background-color: #2379bc;
+            color:white;
+            text-align:center;
+            text-decoration: none;
+            display:inline-block;
+            border-radius: 4px;
+            padding:8px 10px;
+            margin:10px;
+        }
+        .photo{
+            width:150px;
+            height:180px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>学号：</td>
+            <td>{{student[0]}}</td>
+        </tr>
+        <tr>
+            <td>姓名：</td>
+            <td>{{student[1]}}</td>
+        </tr>
+        <tr>
+            <td>性别：</td>
+            <td>{{student[2]}}</td>
+        </tr>
+        <tr>
+            <td>出生日期：</td>
+            <td>{{student[3]}}</td>
+        </tr>
+        <tr>
+            <td>专业：</td>
+            <td>{{student[4]}}</td>
+        </tr>
+        <tr>
+            <td>班级：</td>
+            <td>{{student[5]}}</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>教师信息管理</title>
+    </head>
+    <body>
+        <div>
+            <div>
+                <form  action="{{url_for('student_add')}}" method="post">
+                    <button type="submit" >新增</button>
+                    <div>
+                        <table>
+                            <tr>
+                                <td><label>课程编号</label>
+                                    <input type="text" name ="num" id ="num"></td>
+                                    <td>
+                                        <label>名称</label>
+                                    <input type="text" name ="name" id ="name">
+                                    </td>
+                                    <td>
+                                        <label>总学时</label>
+                                        <input type="text" name ="sex" id ="sex">
+                                    </td>
+                                    <td>
+                                        <label>学分</label>
+                                        <input type="text" name ="birthday" id ="birthday">
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>课程类别</label>
+                                    <input type="text" name ="speciality" id ="speciality">
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <form  action="{{url_for('teacher_query')}}" method="post">
+                    <label>课程编号：</label>
+                    <input type="text" >
+                    <button type="submit" >查询</button>
+                </form>
+
+            </div>
+<!--            <div>-->
+<!--                <table style="border: 1px solid;">-->
+<!--                    <tr>-->
+<!--                        <th>编号</th>-->
+<!--                        <th>姓名</th>-->
+<!--                        <th>性别</th>-->
+<!--                        <th>所属系所</th>-->
+<!--                        <th>职称</th>-->
+<!--                        <th>密码</th>-->
+<!--                    </tr>-->
+<!--                    {% for r in info %}-->
+<!--                    <tr>-->
+<!--                        <td>{{r[0][0]}}</td>-->
+<!--                        <td>{{r[0][1]}}</td>-->
+<!--                        <td>{{r[0][2]}}</td>-->
+<!--                        <td>{{r[0][3]}}</td>-->
+<!--                        <td>{{r[0][4]}}</td>-->
+<!--                        <td>{{r[0][5]}}</td>-->
+<!--                        <td><a href="{{url_for('xiu_open')}}?kehao={{r[0][0]}}&kexuhao={{r[0][1]}}&tea={{r[0][2]}}" class="buttons">修改</a>&nbsp;-->
+<!--                            <a class="buttons" href="{{url_for('del_open')}}?kehao={{r[0][0]}}&kexuhao={{r[0][1]}}&tea={{r[0][2]}}">删除</a></td>-->
+<!--                    </tr>-->
+<!--                {% endfor %}-->
+<!--                </table>-->
+<!--            </div>-->
+        </div>
+    </body>
+</html>

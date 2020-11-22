@@ -68,9 +68,9 @@ def result():
     else:
         return redirect(url_for('index'))
 
-@app.route('/feng')
-def feng():
-   return render_template('fengmian.html')
+# @app.route('/feng')
+# def feng():
+#    return render_template('fengmian.html')
 
 #个人中心
 @app.route('/self_info', methods=["GET"])
@@ -804,8 +804,36 @@ def student_info():
     #查询全部学生信息
     result,_= GetSql2("select * from student")
     if result:
-        print(result)
+        # print(result)
         return render_template("studentinfo.html",info = result)
+
+
+
+#教师信息管理
+@app.route('/teacher_info',methods=['POST','GET'])
+def teacher_info():
+    #查询全部学生信息
+    result,_= GetSql2("select * from teacher")
+    if result:
+        # print(result)
+        return render_template("teacherinfo.html",info = result)
+
+
+#课程信息管理
+@app.route('/class_info',methods=['POST','GET'])
+def class_info():
+    #查询全部学生信息
+    result,_= GetSql2("select * from course")
+    if result:
+        print(result)
+        return render_template("classinfo.html",info = result)
+
+
+
+
+
+
+
 
 #学生信息管理新增
 @app.route('/student_add',methods=['POST','GET'])
@@ -813,8 +841,37 @@ def student_add():
     #查询全部学生信息
     result,_= GetSql2("select * from student")
     if result:
-        print(result)
+        # print(result)
         return render_template("studentinfo.html",info = result)
+
+
+#教师信息管理新增
+@app.route('/teacher_add',methods=['POST','GET'])
+def teacher_add():
+    #查询全部学生信息
+    result,_= GetSql2("select * from teacher")
+    if result:
+        # print(result)
+        return render_template("teacherinfo.html",info = result)
+
+
+#课程信息管理新增
+@app.route('/class_add',methods=['POST','GET'])
+def class_add():
+    #查询全部学生信息
+    result,_= GetSql2("select * from course")
+    if result:
+        # print(result)
+        return render_template("classinfo.html",info = result)
+
+
+
+
+
+
+
+
+
 
 #学生信息管理新增
 @app.route('/student_query',methods=['POST','GET'])
@@ -822,8 +879,25 @@ def student_query():
     #查询全部学生信息
     result,_= GetSql2("select * from student")
     if result:
-        print(result)
+        # print(result)
         return render_template("studentinfo.html",info = result)
 
+#教师信息管理新增
+@app.route('/teacher_query',methods=['POST','GET'])
+def teacher_query():
+    #查询全部学生信息
+    result,_= GetSql2("select * from teacher")
+    if result:
+        # print(result)
+        return render_template("teacherinfo.html",info = result)
+
+#教师信息管理新增
+@app.route('/class_query',methods=['POST','GET'])
+def class_query():
+    #查询全部学生信息
+    result,_= GetSql2("select * from course")
+    if result:
+        # print(result)
+        return render_template("classinfo.html",info = result)
 if __name__ == '__main__':
    app.run(debug = True,port=8080)

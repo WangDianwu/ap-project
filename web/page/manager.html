@@ -1,28 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link href="assets/img/图标.jpg" rel="icon" type="image/x-icon" />
+  <head>
+    <link href="assets/img/icon.jpg" rel="icon" type="image/x-icon" />
     <title>教务管理系统</title>
-    <link rel="stylesheet" type="text/css" href="web/assets/css/1.css">
-</head>
-<body>
+    <style>
+      body {
+        height: 100%;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .head {
+        width: 100%;
+        height: 80px;
+        background-color: rgb(17, 126, 228);
+        color:black;
+      }
+      .welcome {
+        position: absolute;
+        left: 100px;
+      }
+      .exit {
+        position: absolute;
+        right: 50px;
+      }
+      .exit a {
+        text-decoration: none;
+        color: black;
+      }
+      .left {
+        float: left;
+        width: 20%;
+        height: 750px;
+        background-color: rgb(48, 126, 190);
+      }
+      .right {
+        float: left;
+        height: 750px;
+        width: 80%;
+      }
+      .context:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .left ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .left ul li a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        line-height: 50px;
+        text-align: center;
+        font-size: 20px;
+      }
+      .left ul li a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
     <div>
-        <div class="head">
-            <div class="welcome"><h2>欢迎您，管理员{{name}}</h2></div>
-            <div class="exit"><h2><a href="/">退出登录</a></h2></div>
+      <div class="head">
+        <div class="welcome"><h2>欢迎您，管理员{{name}}</h2></div>
+        <div class="exit">
+          <h2><a href="/">退出登录</a></h2>
         </div>
-        <div class="context">
-            <div class="left">
-                <ul>
-                    <li><a href="http://127.0.0.1:5000/feng" target="iframe">个人中心</a></li>
-                    <li><a href="http://127.0.0.1:5000/feng" target="iframe">教师信息管理</a></li>
-                    <li><a href="http://127.0.0.1:5000/feng" target="iframe">学生信息管理</a></li>
-                    <li><a href="http://127.0.0.1:5000/feng" target="iframe">课程信息管理</a></li>
-                    <li><a href="{{url_for('course')}}" target="iframe">开课数据管理</a></li>
-                </ul>
-            </div>
-            <div class="right"><iframe src="http://127.0.0.1:5000/feng" width="100%" height="100%" name="iframe"></iframe></div>
+      </div>
+      <div class="context">
+        <div class="left">
+          <ul>
+            <li>
+              <a href="{{url_for('sysinfo')}}" target="iframe">个人中心</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:5000/feng" target="iframe"
+                >教师信息管理</a
+              >
+            </li>
+            <li>
+              <a href="{{url_for('student_info')}}" target="iframe"
+                >学生信息管理</a
+              >
+            </li>
+            <li>
+              <a href="http://127.0.0.1:5000/feng" target="iframe"
+                >课程信息管理</a
+              >
+            </li>
+            <li>
+              <a href="{{url_for('course')}}" target="iframe">开课数据管理</a>
+            </li>
+          </ul>
         </div>
+        <div class="right">
+          <iframe
+            src="http://127.0.0.1:5000/feng"
+            width="100%"
+            height="100%"
+            name="iframe"
+          ></iframe>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

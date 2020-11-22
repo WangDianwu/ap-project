@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>个人中心</title>
+    </head>
+    <body>
+        <div>
+            <form name="input" action="update_syspwd" method="post" onsubmit="return infocheck();">
+                <div>
+                    <input type="hidden" id="username" value="{{username}}" name="username">
+                    <label for="username" id="username" name="username">用户名："{{username}}"</label>
+                </div>
+                <div>
+                    <label for="pwd">新密码：</label>
+                    <input type="text" id="pwd" name="pwd">
+                </div>
+                <div>
+                    <label for="pwd2">再次确认：</label>
+                    <input type="text" id="pwd2" name="pwd2s">
+                </div>
+                <div>
+                    <input type="submit" value="保存">
+                </div>
+            </form>
+        </div>
+    </body>
+    <script>
+        function infocheck(){
+            var m = document.forms["input"]["pwd"].value;
+            var t2 = /^[a-zA-Z0-9@#*$!%]*$/;
+            var m2 = document.forms["input"]["pwd2"].value;
+            if(m == null || m == ""){
+                alert("新密码不能为空！");
+                return false;
+            }
+            else if(m.length < 6 || m.length > 16){
+                alert("请输入正确的密码，长度为6-16位！");
+                return false;
+            }
+            else if(!t2.test(m)){
+                alert("请输入正确的密码,仅可用英文、数字、特殊字符@#*$!%！");
+                return false;
+            }
+            if(m2 == null || m2 == ""){
+                alert("确认新密码不能为空！");
+                return false;
+            }
+            if(m != m2){
+                alert("密码不一致！");
+                return false;
+            }
+            return true;
+        }
+        console.log('{{userpwd}}');
+    </script>
+</html>

@@ -1,5 +1,7 @@
 import string
 
+import hashlib
+
 # excel操作
 import xlrd as xlrd
 from flask import Flask, redirect, url_for, request, Response, render_template, flash, session
@@ -15,36 +17,47 @@ static_folder='web/assets')
 
 app.secret_key = "jJInfewp(8efkd*9&jfkl"      # flash的消息都存储在session，需要一个会话密匙，密匙随便输入就行，如果对保密性要求高的话，可以使用相关的密匙生成函数，不在细讲
 
+# 初始化路由匹配/   默认页
 @app.route('/')
 def index():
     session.clear()
     return render_template('login.html')
 
-@app.route('/result', methods=['POST', 'GET'])   #登录信息处理界面，处理由'/'传送过来的表单信息
+#  登录方法
+@app.route('/login', methods=['POST', 'GET'])   #登录信息处理界面，处理由'/'传送过来的表单信息
 def result():
     #如果使用post方法传送过来的数据才验证
+    
     if request.method == 'POST':
         #获取表单数据
         username = request.form.get('username')
         password = request.form.get('password')
-        shenfen = request.form.get('shenfen')
+        usertype = request.form.get('usertype')
         #从数据库中验证信息是否正确
+        # 创建md5对象
+        m = hashlib.md5()
+        b = password.encode(encoding='utf-8')
+        m.update(b)
+        password_md5 = m.hexdigest()
         name = ''
-        if shenfen == '学生':
-            result, _ = GetSql2("select 姓名 from student where 学号 = '"+username+"' and 密码 = '"+password+"'")
+        # 学生
+        if usertype == 'student':
+            result, _ = GetSql2("select name from student where num = '"+username+"' and password = '"+password+"'")
             name = result[0][0]
-        if shenfen == '教师':
+        # 教师
+        if usertype == 'teacher':
             result, _ = GetSql2("select 姓名 from teacher where 编号 = '"+username+"' and 密码 = '"+password+"'")
             name = result[0][0]
-        if shenfen == '管理员':
-            result, _ = GetSql2("select * from manager where 账号 = '"+username+"' and 密码 = '"+password+"'")
+        # admin  默认走管理员方式 
+        if username == 'admin':
+            result, _ = GetSql2("select * from sys_user where username = '"+username+"' and userpwd = '"+password_md5+"'")
         if result: #登录成功，页面跳转到相应的功能页面
             # return '登录成功'
-            if shenfen == '管理员':
+            if username == 'admin':
                 return render_template("manager.html", name=username)
-            if shenfen == '教师':
+            if usertype == 'teacher':
                 return render_template("teacher.html", name=name, bianhao=username)
-            if shenfen == '学生':
+            if usertype == 'student':
                 return render_template("student.html", name=name, xuehao=username)
         else:
             flash("您输入的用户名和密码有误，请重新输入！")
@@ -63,7 +76,7 @@ def self_info():
     shenfen = request.args.get('shenfen')
     if shenfen == '学生':
         xuehao = request.args.get('xuehao')
-        result, _ = GetSql2("select 学号,姓名,性别,出生日期,sdept.名称,class.名称 from student,sdept,class where student.班级号 = class.班级号 and 专业 = sdept.编号 and 学号 = '" + xuehao + "'")
+        result, _ = GetSql2("select num,name,sex,birthday,sdept.名称,class.名称 from student,sdept,class where student.classnum = class.班级号 and speciality = sdept.编号 and num = '" + xuehao + "'")
         return render_template("student_self.html", student = result[0])
     if shenfen == '教师':
         bianhao = request.args.get('bianhao')
@@ -89,7 +102,7 @@ def update_password():
     hao = request.form.get('hao')
     mima = request.form.get('mima')
     if shenfen == '学生':
-        data = dict(学号 = hao, 密码 = mima)
+        data = dict(num = hao, password = mima)
         result = UpdateData(data, "student")
         return render_template("mima.html", shenfen=shenfen, hao=hao, result=result)
     if shenfen == '教师':
@@ -362,7 +375,7 @@ def tea_cha():
     # 计算当前页数，查询该范围内的学生
     current_page = page
     start_hang = (page - 1) * hang
-    sql = "select stu_cou.学号, 姓名, 性别, sdept.名称, class.名称, 平时成绩, 考试成绩 from stu_cou, student, sdept, class where stu_cou.学号 = student.学号 and sdept.编号 = student.专业 and class.班级号 = student.班级号 and 课程编号 = '"+kehao+"' and 课序号 = '"+kexuhao+"' limit " + str(hang) + " offset " + str(start_hang) + ""
+    sql = "select stu_cou.学号, name, sex, sdept.名称, class.名称, 平时成绩, 考试成绩 from stu_cou, student, sdept, class where stu_cou.学号 = student.num and sdept.编号 = student.speciality and class.班级号 = student.classnum and 课程编号 = '"+kehao+"' and 课序号 = '"+kexuhao+"' limit " + str(hang) + " offset " + str(start_hang) + ""
     result, _ = GetSql2(sql)
     #计算出总成绩
     #判断平时成绩和考试成绩是否已经公布
@@ -418,7 +431,7 @@ def tea_stu():
     # 计算当前页数，查询该范围内的学生
     current_page = page
     start_hang = (page - 1) * hang
-    sql = "select stu_cou.学号, 姓名, 性别, sdept.名称, class.名称 from stu_cou, student, sdept, class where stu_cou.学号 = student.学号 and sdept.编号 = student.专业 and class.班级号 = student.班级号 and 课程编号 = '" + kehao + "' and 课序号 = '" + kexuhao + "' limit " + str(
+    sql = "select stu_cou.学号, name, sex, sdept.名称, class.名称 from stu_cou, student, sdept, class where stu_cou.学号 = student.num and sdept.编号 = student.speciality and class.班级号 = student.classnum and 课程编号 = '" + kehao + "' and 课序号 = '" + kexuhao + "' limit " + str(
         hang) + " offset " + str(start_hang) + ""
     result, _ = GetSql2(sql)
     return render_template("tea_stu.html", bianhao=bianhao, results=result, page_num=page_num,
@@ -755,6 +768,60 @@ def piliang_luru():
     result = UpdateData1("update stu_cou set 平时成绩 = "+str(ping)+", 考试成绩 = "+str(kao)+" where 学号 = '"+str(xuehao)+"' and 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
 
     return redirect(url_for('piliang', result=result, kehao=kehao, kexuhao=kexuhao))
+
+
+#个人中心
+@app.route('/sysinfo', methods=['POST', 'GET'])
+def sysinfo():
+    #查询个人账号
+    result,_= GetSql2("select * from sys_user")
+    if result:
+        return render_template("sysinfo.html", username= result[0][0])
+
+#个人中心修改密码
+@app.route('/update_syspwd', methods=['POST', 'GET'])
+def update_syspwd():
+    username = request.form.get('username')
+    password = request.form.get('pwd')
+    # 创建md5对象
+    m = hashlib.md5()
+    b = password.encode(encoding='utf-8')
+    m.update(b)
+    password_md5 = m.hexdigest()
+    #查询教师授课表
+    result= UpdateData1("update sys_user set userpwd ='"+password_md5+"' where username='"+username+"'")
+    
+    if  result:
+        flash("修改成功！")
+        return render_template("sysinfo.html", username= username)
+        # return redirect(url_for('index'))  # 密码错误重定向到登录页面
+
+#学生信息管理
+@app.route('/student_info',methods=['POST','GET'])
+def student_info():
+    #查询全部学生信息
+    result,_= GetSql2("select * from student")
+    if result:
+        print(result)
+        return render_template("studentinfo.html",info = result)
+
+#学生信息管理新增
+@app.route('/student_add',methods=['POST','GET'])
+def student_add():
+    #查询全部学生信息
+    result,_= GetSql2("select * from student")
+    if result:
+        print(result)
+        return render_template("studentinfo.html",info = result)
+
+#学生信息管理新增
+@app.route('/student_query',methods=['POST','GET'])
+def student_query():
+    #查询全部学生信息
+    result,_= GetSql2("select * from student")
+    if result:
+        print(result)
+        return render_template("studentinfo.html",info = result)
 
 if __name__ == '__main__':
    app.run(debug = True,port=8080)

@@ -9,6 +9,8 @@ from flask import Flask, redirect, url_for, request, Response, render_template, 
 import sqlite3
 from database.helper.sqlithelper import *
 
+
+
 app = Flask(__name__,
 template_folder='web/page',
 static_folder='web/assets')

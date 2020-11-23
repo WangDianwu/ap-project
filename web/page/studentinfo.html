@@ -7,37 +7,37 @@
         <div>
             <div>
                 <form  action="{{url_for('student_add')}}" method="post">
-                    <button type="submit" >新增</button>
+                    <button type="submit" onsubmit="return infocheck();">新增</button>
                     <div>
                         <table>
                             <tr>
                                 <td><label>学号</label>
-                                    <input type="text" name ="num" id ="num"></td>
+                                    <input type="text" name ="num" id ="num" value="201800800001"></td>
                                     <td>
                                         <label>姓名</label>
-                                    <input type="text" name ="name" id ="name">
+                                    <input type="text" name ="name" id ="name" value="wdw">
                                     </td>
                                     <td>
                                         <label>性别</label>
-                                        <input type="text" name ="sex" id ="sex">
+                                        <input type="text" name ="sex" id ="sex" value="男">
                                     </td>
                                     <td>
                                         <label>出生日期</label>
-                                        <input type="text" name ="birthday" id ="birthday">
+                                        <input type="text" name ="birthday" id ="birthday" value="2020/10/1">
                                     </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>专业</label>
-                                    <input type="text" name ="speciality" id ="speciality">
+                                    <input type="text" name ="speciality" id ="speciality" value="65401">
                                 </td>
                                 <td>
                                     <label>班级号</label>
-                                    <input type="text" name ="classnum" id ="classnum">
+                                    <input type="text" name ="classnum" id ="classnum" value="78901">
                                 </td>
                                 <td>
                                     <label>密码</label>
-                                    <input type="text" name ="password" id ="password">
+                                    <input type="text" name ="password" id ="password" value="96e79218965eb72c92a549dd5a330112">
                                 </td>
                             </tr>
                         </table>
@@ -63,13 +63,13 @@
                     </tr>
                     {% for r in info %}
                     <tr>
-                        <td>{{r[0][0]}}</td>
-                        <td>{{r[0][1]}}</td>
-                        <td>{{r[0][2]}}</td>
-                        <td>{{r[0][3]}}</td>
-                        <td>{{r[0][4]}}</td>
-                        <td>{{r[0][5]}}</td>
-                        <td>{{r[0][6]}}</td>
+                        <td>{{r[0]}}</td>
+                        <td>{{r[1]}}</td>
+                        <td>{{r[2]}}</td>
+                        <td>{{r[3]}}</td>
+                        <td>{{r[4]}}</td>
+                        <td>{{r[5]}}</td>
+                        <td>{{r[6]}}</td>
                         <td><a href="{{url_for('xiu_open')}}?kehao={{r[0][0]}}&kexuhao={{r[0][1]}}&tea={{r[0][2]}}" class="buttons">修改</a>&nbsp;
                             <a class="buttons" href="{{url_for('del_open')}}?kehao={{r[0][0]}}&kexuhao={{r[0][1]}}&tea={{r[0][2]}}">删除</a></td>
                     </tr>
@@ -78,4 +78,5 @@
             </div>
         </div>
     </body>
+    <script type=""></script>
 </html>

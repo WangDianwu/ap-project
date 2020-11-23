@@ -108,9 +108,24 @@ def InsertData1(data, tablename):
     for v in fieldNames:
         values.append(data[v])
     sql = "insert into  %s (%s) values( %s) " % (tablename, ",".join(fieldNames), ",".join(["?"] * len(fieldNames)))
-    # print(sql)
+    print(sql)
     try:
         cusor.execute(sql, values)
+        conn.commit()
+        result = "添加成功"
+    except Exception as e:
+        conn.rollback()
+        result = "添加失败"
+    cusor.close()
+    CloseDb(conn)
+    return result
+
+def InsertDataV(sql):
+    conn = OpenDb()
+    cusor = conn.cursor()
+    print(sql)
+    try:
+        cusor.execute(sql)
         conn.commit()
         result = "添加成功"
     except Exception as e:

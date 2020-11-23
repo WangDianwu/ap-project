@@ -713,7 +713,6 @@ def student_info():
     #查询全部学生信息
     result,_= GetSql2("select * from student")
     if result:
-        # print(result)
         return render_template("studentinfo.html",info = result)
 
 #教师信息管理
@@ -722,7 +721,6 @@ def teacher_info():
     #查询全部学生信息
     result,_= GetSql2("select * from teacher")
     if result:
-        # print(result)
         return render_template("teacherinfo.html",info = result)
 
 
@@ -732,13 +730,31 @@ def class_info():
     #查询全部学生信息
     result,_= GetSql2("select * from course")
     if result:
-        print(result)
         return render_template("classinfo.html",info = result)
 
 
 #学生信息管理新增
 @app.route('/student_add',methods=['POST','GET'])
 def student_add():
+
+    print(request.form.get('num'))
+ 
+    num= request.form.get('num')
+    name= request.form.get('name')
+    sex= request.form.get('sex')
+    birthday= request.form.get('birthday')
+    speciality= request.form.get('speciality')
+    classnum= request.form.get('classnum')
+    password= request.form.get('password')
+    sql = "insert into  student (num,name,sex,birthday,speciality,classnum,password) values('"+str(num)+"','"+str(name)+"','"+str(sex)+"','"+str(birthday)+"','"+str(speciality)+"','"+str(classnum)+"','"+str(password)+"') "
+    print(sql)
+    resultadd = InsertDataV(sql) 
+
+    print(resultadd)
+
+
+
+
     #查询全部学生信息
     result,_= GetSql2("select * from student")
     if result:

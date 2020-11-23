@@ -553,44 +553,17 @@ def excel_mark():
 #将所有的教师授课信息显示出来
 @app.route('/course', methods=['POST', 'GET'])
 def course():
-    r = request.args.get('result', '')
+    r = request.args.get('result', '')#？？？
     #查询教师授课表
     result,_ = GetSql2("select * from tea_cou")
     #查询开课班级表
     for i in range(len(result)):
         result1, _ = GetSql2("select 名称 from open_cou, class where open_cou.班级号 = class.班级号 and 课程编号 = '"+str(result[i][0])+"' and 课序号 = '"+str(result[i][1])+"'")
-        result[i] = (result[i], result1)
+        result[i] = (result[i], result1)#？？？？？
+    return render_template("alreadyclass.html", results=result, result=r)
+    # return render_template("man_cou.html", results=result, result=r)
 
-    return render_template("man_cou.html", results=result, result=r)
 
-#添加开设课程页面
-@app.route('/add_open', methods=['POST', 'GET'])
-def add_open():
-    #把没有开课的课程编号传过去
-    kehao, _ = GetSql2("select 课程编号 from course where 课程编号 not in (select 课程编号 from tea_cou)")
-    #查询所有的教师编号传过去
-    tea, _ = GetSql2("select 编号 from teacher")
-    # #查询所有的系所
-    # xi, _ = GetSql2("select 编号 from xisuo")
-    # #根据系所查询所有的专业
-    # zhuan = []
-    # for x in xi:
-    #     zhuans, _ = GetSql2("select 编号 from sdept where 所属系所 = '"+str(x[0])+"'")
-    #     zhuan.append(zhuans)
-    # #根据各个专业，查询班级号
-    # ban = []
-    # for z in zhuan:
-    #     banji = []
-    #     for z1 in z:
-    #         bans, _ = GetSql2("select 班级号 from class where 所属专业 = '"+str(z1[0])+"'")
-    #         banji.append(bans)
-    #     ban.append(banji)
-    #查询所有的班级
-    ban, _ = GetSql2("select 班级号 from class")
-    # 样式[('32101',), ('32102',), ('32103',), ('32104',)]
-    # [[('65401',), ('65402',), ('65403',)], [('65404',), ('65405',), ('65406',), ('65407',)], [('65408',), ('65409',)],[]]
-    # [[[('78901',)], [('78902',), ('78903',)], [('78904',)]], [[], [], [], []], [[], []], []]
-    return render_template("add_open.html", kehao=kehao, tea=tea, ban=ban)
 
 #添加开设课程
 @app.route('/add_open_cou', methods=['POST', 'GET'])
@@ -628,73 +601,39 @@ def add_open_cou():
     else:
         return redirect(url_for('add_open'))
 
-#删除开设课程
-@app.route('/del_open', methods=['GET', 'POST'])
-def del_open():
-    if request.method == 'GET':
-        #是单独删除
-        kehao = request.args.get('kehao')
-        kexuhao = request.args.get('kexuhao')
-        tea = request.args.get('tea')
-        sql1 = "delete from tea_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"' and 任课教师 = '"+str(tea)+"'"
-        result1 = DelDataById1(sql1)
-        sql2 = "delete from open_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'"
-        result2 = DelDataById1(sql2)
-        if result1 == '删除成功' and result2 == '删除成功':
-            result = '删除成功'
-        else:
-            result = '删除失败'
-        return redirect(url_for('course', result=result))
-    else:
-        #是批量删除
-        couids = request.form.getlist('couid')
-        # couid是列表的形式，['12301+1+45601', '12302+1+45602']，用字典的方式获取数据
-        ke = []
-        flag = 0
-        for couid in couids:
-            #第一个加号的位置
-            index = couid.find('+')
-            #第二个加号的位置
-            index2 = couid.find('+', index+1)
-            dic = {}
-            dic['kehao'] = couid[:index]
-            dic['kexuhao'] = couid[index + 1:index2]
-            dic['tea'] = couid[index2+1:]
-            #将数据库中的信息删除
-            result1 = DelDataById1("delete from tea_cou where 课程编号 = '"+str(dic['kehao'])+"' and 课序号 = '"+str(dic['kexuhao'])+"' and 任课教师 = '"+str(dic['tea'])+"'")
-            result2 = DelDataById1("delete from open_cou where 课程编号 = '"+str(dic['kehao'])+"' and 课序号 = '"+str(dic['kexuhao'])+"'")
-            if result1 == '删除成功' and result2 == '删除成功':
-                continue
-            else:
-                flag = 1
-        if flag == 1:
-            result = '删除失败'
-        else:
-            result = '删除成功'
-        return redirect(url_for('course', result=result))
 
-#修改开设课程页面
-@app.route('/xiu_open', methods=['GET'])
-def xiu_open():
-    #将数据查询出来，传递给修改界面
-    kehao = request.args.get('kehao')
-    kexuhao = request.args.get('kexuhao')
-    tea = request.args.get('tea')
+
+
+
+
+
+#查询开设课程
+@app.route('/cha_kai', methods=['POST'])
+def cha_kai():
+    r = request.args.get('result', '')
+    kehao = request.form.get('kehao')
+    kexuhao = request.form.get('kexuhao')
+    #查询该课程的开课信息
     # 查询教师授课表
-    result, _ = GetSql2("select * from tea_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"' and 任课教师 = '"+str(tea)+"'")
+    result, _ = GetSql2("select * from tea_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
     # 查询开课班级表
     for i in range(len(result)):
-        op = []
-        result1, _ = GetSql2("select class.班级号 from open_cou, class where open_cou.班级号 = class.班级号 and 课程编号 = '" + str(
+        result1, _ = GetSql2("select 名称 from open_cou, class where open_cou.班级号 = class.班级号 and 课程编号 = '" + str(
             result[i][0]) + "' and 课序号 = '" + str(result[i][1]) + "'")
-        for r in result1:
-            op.append(r[0])
-        result[i] = (result[i], op)
-    #将所有任课教师查询出来
-    teachers, _ = GetSql2("select 编号 from teacher")
-    #将所有的班级查询出来
-    bans,_ = GetSql2("select 班级号 from class")
-    return render_template("xiu_open.html", results=result[0], teachers=teachers, ban=bans)
+        result[i] = (result[i], result1)
+    #[(('12301', 1, '45601', 50, '1', '商学院101', '1-18', 1, 2), [('计算机科学与技术',), ('数字媒体技术',)])]
+    return render_template("man_cou.html", results=result, result=r)
+
+#批量输入成绩
+@app.route('/piliang', methods=['GET'])
+def piliang():
+    kehao = request.args.get('kehao')
+    kexuhao = request.args.get('kexuhao')
+    bianhao = request.args.get('bianhao')
+    r = request.args.get('result', '')  # 默认值设为空
+    #查询这门课的所有学生
+    result, _ = GetSql2("select 学号, 平时成绩, 考试成绩 from stu_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
+    return render_template("piliang.html", results=result, result=r, kehao=kehao, kexuhao=kexuhao, bianhao=bianhao)
 
 #修改开设课程
 @app.route('/xiu_open_cou', methods=['POST'])
@@ -727,36 +666,6 @@ def xiu_open_cou():
         UpdateData2("update open_cou set 班级号 = '"+str(o)+"' where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
 
     return redirect(url_for('course', result=result1))
-
-#查询开设课程
-@app.route('/cha_kai', methods=['POST'])
-def cha_kai():
-    r = request.args.get('result', '')
-    kehao = request.form.get('kehao')
-    kexuhao = request.form.get('kexuhao')
-    #查询该课程的开课信息
-    # 查询教师授课表
-    result, _ = GetSql2("select * from tea_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
-    # 查询开课班级表
-    for i in range(len(result)):
-        result1, _ = GetSql2("select 名称 from open_cou, class where open_cou.班级号 = class.班级号 and 课程编号 = '" + str(
-            result[i][0]) + "' and 课序号 = '" + str(result[i][1]) + "'")
-        result[i] = (result[i], result1)
-    #[(('12301', 1, '45601', 50, '1', '商学院101', '1-18', 1, 2), [('计算机科学与技术',), ('数字媒体技术',)])]
-    return render_template("man_cou.html", results=result, result=r)
-
-#批量输入成绩
-@app.route('/piliang', methods=['GET'])
-def piliang():
-    kehao = request.args.get('kehao')
-    kexuhao = request.args.get('kexuhao')
-    bianhao = request.args.get('bianhao')
-    r = request.args.get('result', '')  # 默认值设为空
-    #查询这门课的所有学生
-    result, _ = GetSql2("select 学号, 平时成绩, 考试成绩 from stu_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"'")
-    return render_template("piliang.html", results=result, result=r, kehao=kehao, kexuhao=kexuhao, bianhao=bianhao)
-
-
 
 #批量输入成绩，进行录入
 @app.route('/piliang_luru', methods=['POST'])
@@ -807,8 +716,6 @@ def student_info():
         # print(result)
         return render_template("studentinfo.html",info = result)
 
-
-
 #教师信息管理
 @app.route('/teacher_info',methods=['POST','GET'])
 def teacher_info():
@@ -827,12 +734,6 @@ def class_info():
     if result:
         print(result)
         return render_template("classinfo.html",info = result)
-
-
-
-
-
-
 
 
 #学生信息管理新增
@@ -865,14 +766,6 @@ def class_add():
         return render_template("classinfo.html",info = result)
 
 
-
-
-
-
-
-
-
-
 #学生信息管理新增
 @app.route('/student_query',methods=['POST','GET'])
 def student_query():
@@ -899,5 +792,88 @@ def class_query():
     if result:
         # print(result)
         return render_template("classinfo.html",info = result)
+
+
+#添加开设课程页面
+@app.route('/add_open', methods=['POST', 'GET'])
+def add_open():
+    #把没有开课的课程编号传过去
+    kehao, _ = GetSql2("select 课程编号 from course where 课程编号 not in (select 课程编号 from tea_cou)")
+    #查询所有的教师编号传过去
+    bianhao, _ = GetSql2("select 编号 from teacher")
+    banhao, _ = GetSql2("select 班级号 from class")
+    return render_template("addalreadyclass.html", kehao=kehao, tea=bianhao, ban= banhao)
+
+
+
+
+#修改开设课程页面
+@app.route('/xiu_open', methods=['GET'])
+def xiu_open():
+    #将数据查询出来，传递给修改界面
+    # kehao = request.args.get('kehao')
+    # kexuhao = request.args.get('kexuhao')
+    # tea = request.args.get('tea')
+    # # 查询教师授课表
+    # result, _ = GetSql2("select * from tea_cou where 课程编号 = '"+str(kehao)+"' and 课序号 = '"+str(kexuhao)+"' and 任课教师 = '"+str(tea)+"'")
+    # # 查询开课班级表
+    # for i in range(len(result)):
+    #     op = []
+    #     result1, _ = GetSql2("select class.班级号 from open_cou, class where open_cou.班级号 = class.班级号 and 课程编号 = '" + str(
+    #         result[i][0]) + "' and 课序号 = '" + str(result[i][1]) + "'")
+    #     for r in result1:
+    #         op.append(r[0])
+    #     result[i] = (result[i], op)
+    # #将所有任课教师查询出来
+    # teachers, _ = GetSql2("select 编号 from teacher")
+    # #将所有的班级查询出来
+    # bans,_ = GetSql2("select 班级号 from class")
+    return render_template("xiualreadyclass.html")
+# results=result[0], teachers=teachers, ban=bansv
+
+
+
+
+#删除开设课程
+@app.route('/del_open', methods=['GET', 'POST'])
+def del_open():
+    if request.method == 'GET':#是单独删除tea_cou:课；     open_cou：开起来的课
+        kexuhao = request.args.get('kexuhao')
+        sql1 = "delete from tea_cou where  课序号 = '"+str(kexuhao)+"'"
+        result1 = DelDataById1(sql1)
+        sql2 = "delete from open_cou where  课序号 = '"+str(kexuhao)+"'"
+        result2 = DelDataById1(sql2)
+        if result1 == '删除成功' and result2 == '删除成功':
+            result = '删除成功'
+        else:
+            result = '删除失败'
+        return redirect(url_for('course', result=result))
+    else:
+        #是批量删除
+        couids = request.form.getlist('couid')
+        # couid是列表的形式，['12301+1+45601', '12302+1+45602']，用字典的方式获取数据
+        ke = []
+        flag = 0
+        for couid in couids:
+            #第一个加号的位置
+            index = couid.find('+')
+            #第二个加号的位置
+            index2 = couid.find('+', index+1)
+            dic = {}
+            dic['kehao'] = couid[:index]
+            dic['kexuhao'] = couid[index + 1:index2]
+            dic['tea'] = couid[index2+1:]
+            #将数据库中的信息删除
+            result1 = DelDataById1("delete from tea_cou where 课程编号 = '"+str(dic['kehao'])+"' and 课序号 = '"+str(dic['kexuhao'])+"' and 任课教师 = '"+str(dic['tea'])+"'")
+            result2 = DelDataById1("delete from open_cou where 课程编号 = '"+str(dic['kehao'])+"' and 课序号 = '"+str(dic['kexuhao'])+"'")
+            if result1 == '删除成功' and result2 == '删除成功':
+                continue
+            else:
+                flag = 1
+        if flag == 1:
+            result = '删除失败'
+        else:
+            result = '删除成功'
+        return redirect(url_for('course', result=result))
 if __name__ == '__main__':
-   app.run(debug = True,port=8080)
+   app.run(debug = True,port=5000)

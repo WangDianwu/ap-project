@@ -1,0 +1,143 @@
+                                                                                                                                                                                                                        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>教务管理系统</title>
+</head>
+<body>
+    <h2>添加开课信息页面</h2>
+    <div action="{{url_for('add_open_cou')}}" method="post">
+                <table style="border: 1px solid;">
+                    <tr>
+                        <th>课程编号</th>
+                        <th>课序号</th>
+                        <th>任课教师</th>
+                        <th>选课人数上限</th>
+                        <th>开课学期</th>
+                        <th>上课地点</th>
+                        <th>周数</th>
+                        <th>星期</th>
+                        <th>节数</th>
+                        <th>开课班级</th>
+                    </tr>
+
+                    <tr>
+
+                        <td><input type="text" name="kehao"></td>
+                        <td><input type="text" name="kexuhao"></td>
+                        <td><input type="text" name="teacher"></td>
+                        <td><input type="text" name="kaikexueqi"></td>
+                        <td><input type="text" name="place"></td>
+                        <td><input type="text" name="zhoushu"></td>
+                        <td><input type="text" name="xingqi"></td>
+                        <td><input type="text" name="jieshu"></td>
+                        <td><input type="text" name="kaikebanji"></td>
+                    </tr>
+                </table>
+                <div>
+                <input type="submit" value="保存">
+                <input type="button" value="返回" onclick="javascript:history.back();">
+                </div>
+    </div>
+
+<!--    <form  action="{{url_for('add_open_cou')}}" method="post">-->
+<!--            <div>-->
+<!--                <label for="kehao">课程编号：</label>-->
+<!--                <select id="kehao" name="kehao">-->
+<!--                    {% for k in kehao %}-->
+<!--                        <option value="{{k[0]}}">{{k[0]}}</option>-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="kexuhao">课序号：</label>-->
+<!--                <input type="text" id="kexuhao" name="kexuhao" oninput="value=value.replace(/[^\d]/g,'')">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="tea">任课教师：</label>-->
+<!--                <select id="tea" name="tea">-->
+<!--                    {% for t in tea %}-->
+<!--                        <option value="{{t[0]}}">{{t[0]}}</option>-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="num">选课人数上限：</label>-->
+<!--                <input type="text" id="num" name="num" oninput="value=value.replace(/[^\d]/g,'')">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="kaike">开课学期：</label>-->
+<!--                <select id="kaike" name="kaike">-->
+<!--                    <option value="1">1</option>-->
+<!--                    <option value="2">2</option>-->
+<!--                    <option value="3">3</option>-->
+<!--                    <option value="4">4</option>-->
+<!--                    <option value="5">5</option>-->
+<!--                    <option value="6">6</option>-->
+<!--                    <option value="7">7</option>-->
+<!--                    <option value="8">8</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="didian">上课地点：</label>-->
+<!--                <input type="text" id="didian" name="didian">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="zhou">周数：</label>-->
+<!--                <input type="text" id="zhou" name="zhou">-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="xing">星期：</label>-->
+<!--                <select id="xing" name="xing">-->
+<!--                    <option value="1">1</option>-->
+<!--                    <option value="2">2</option>-->
+<!--                    <option value="3">3</option>-->
+<!--                    <option value="4">4</option>-->
+<!--                    <option value="5">5</option>-->
+<!--                    <option value="6">6</option>-->
+<!--                    <option value="7">7</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label for="jie">节数：</label>-->
+<!--                <select id="jie" name="jie">-->
+<!--                    <option value="1">1</option>-->
+<!--                    <option value="2">2</option>-->
+<!--                    <option value="3">3</option>-->
+<!--                    <option value="4">4</option>-->
+<!--                    <option value="5">5</option>-->
+<!--                    <option value="6">6</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <label>开课班级：</label>-->
+<!--                {% for b in ban %}-->
+<!--                    <input type="checkbox" name="open" value="{{b[0]}}">{{b[0]}}-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <input type="submit" value="保存">-->
+<!--                <input type="button" value="返回" onclick="javascript:history.back();">-->
+<!--            </div>-->
+<!--        </form>-->
+    <script>
+        function infocheck(){
+            var kexuhao = document.forms["input"]["kexuhao"].value;
+            if(kexuhao == null || kexuhao == ""){
+                alert("课序号不能为空！");
+                return false;
+            }
+            var num = document.forms["input"]["num"].value;
+            if(num == null || num == ""){
+                alert("选课人数上限不能为空！");
+                return false;
+            }
+            var didian = document.forms["input"]["didian"].value;
+            if(didian == null || didian == ""){
+                alert("地点不能为空！！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1679527-a6dc-4eb4-80b5-76acadeb6c1c" name="Default Changelist" comment="测试提交">
+    <list default="true" id="a1679527-a6dc-4eb4-80b5-76acadeb6c1c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/web/page/addalreadyclass.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/page/alreadyclass.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/page/add_open.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/page/man_cou.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/page/man_cou.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/page/manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/page/manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/page/sysinfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/page/sysinfo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/page/xiu_open.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/page/xiualreadyclass.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +40,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/web技术4/新建文件夹/大作业" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
@@ -131,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606051081249</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="测试提交">
+      <created>1606053557412</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606053557412</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
